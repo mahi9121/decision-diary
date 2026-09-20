@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New Decision - Decision Diary</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<nav>
+    <div class="logo">🧠 Decision Diary</div>
+    <div>
+        <a href="/">Home</a>
+        <a href="/dashboard">Dashboard</a>
+    </div>
+</nav>
+
+<main class="form-container">
+    <div class="form-header">
+        <p class="tag">STEP 1</p>
+        <h1>Record a Decision</h1>
+        <p>Tell us what you expect before you see the result.</p>
+    </div>
+
+    <form method="POST" class="form-card">
+        <label>Decision Title</label>
+        <input type="text" name="title" placeholder="Example: Complete ML Project" required>
+
+        <label>Category</label>
+        <select name="category" required>
+            <option value="Education">Education</option>
+            <option value="Projects">Projects</option>
+            <option value="Work">Work</option>
+            <option value="Finance">Finance</option>
+            <option value="Personal">Personal</option>
+            <option value="Health">Health</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <label>Why are you making this decision?</label>
+        <textarea name="reason" placeholder="Example: Most of the project is already completed."></textarea>
+
+        <label>What do you expect will happen?</label>
+        <textarea name="expected_outcome" placeholder="Example: I expect to complete the project successfully." required></textarea>
+
+        <label>Expected Time (days)</label>
+        <input type="number" name="expected_time" min="0.1" step="0.1" placeholder="3" required>
+
+        <label>Confidence: <span id="confidenceValue">80</span>%</label>
+        <input
+            type="range"
+            name="confidence"
+            min="0"
+            max="100"
+            value="80"
+            oninput="confidenceValue.innerText=this.value"
+        >
+
+        <button class="btn full" type="submit">Save Decision</button>
+    </form>
+</main>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Decision Diary</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<nav>
+    <div class="logo">🧠 Decision Diary</div>
+    <div>
+        <a href="/">Home</a>
+        <a href="/dashboard">Dashboard</a>
+        <a class="btn small" href="/add">+ New Decision</a>
+    </div>
+</nav>
+
+<main class="container">
+    <section class="hero">
+        <div>
+            <p class="tag">PERSONAL DECISION INTELLIGENCE</p>
+            <h1>Learn from what you thought would happen.</h1>
+            <p>
+                Record your decisions, compare your predictions with reality,
+                and discover your personal decision-making patterns.
+            </p>
+            <a class="btn" href="/add">Record a Decision</a>
+        </div>
+        <div class="hero-icon">🧠</div>
+    </section>
+
+    <section class="cards">
+        <div class="card">
+            <span>Decisions</span>
+            <strong>{{ total }}</strong>
+        </div>
+        <div class="card">
+            <span>Completed</span>
+            <strong>{{ completed }}</strong>
+        </div>
+        <div class="card">
+            <span>Success Rate</span>
+            <strong>{{ accuracy }}%</strong>
+        </div>
+        <div class="card">
+            <span>Avg. Time Error</span>
+            <strong>{{ avg_error }}%</strong>
+        </div>
+    </section>
+
+    <section class="insight">
+        <div class="insight-icon">✨</div>
+        <div>
+            <h3>AI Insight</h3>
+            <p>{{ insight }}</p>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-title">
+            <h2>Recent Decisions</h2>
+            <a href="/dashboard">View Dashboard →</a>
+        </div>
+
+        {% if decisions %}
+            <div class="decision-list">
+            {% for d in decisions %}
+                <a class="decision-card" href="/decision/{{ d.id }}">
+                    <div>
+                        <h3>{{ d.title }}</h3>
+                        <p>{{ d.category }} · Confidence {{ d.confidence|round|int }}%</p>
+                    </div>
+                    <span class="status {{ d.status|lower }}">{{ d.status }}</span>
+                </a>
+            {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty">
+                <h3>No decisions yet</h3>
+                <p>Record your first decision to start learning from your predictions.</p>
+                <a class="btn" href="/add">Create First Decision</a>
+            </div>
+        {% endif %}
+    </section>
+</main>
+</body>
+</html>
